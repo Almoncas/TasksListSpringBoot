@@ -12,18 +12,13 @@ import com.nttdata.nttdatadarmytasksms.repository.TasksListRepository;
 public class TasksListService {
 	
 	@Autowired
-	TasksListRepository repository;
+	private TasksListRepository repository;
 	
 	public boolean checkTaskAlreadyExist(int id) {
 		
 		Optional<Tasks> task=repository.findById(id);
-		if(task.isPresent()) 	//Comprueba si en task ha algun valor guardado, por el metodo de antes findbyId
-			return true;
-		else
-			return false;
-		
-		
-		
+		return task.isPresent();
+	
 	}
 	
 	public Tasks getTaskByID(int id) {

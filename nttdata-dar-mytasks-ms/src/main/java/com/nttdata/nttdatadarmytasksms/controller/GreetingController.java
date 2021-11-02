@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GreetingController{
 	 @Autowired
-	 Greeting greeting; //Con autowired puedes crear objetos directamente
+	 private Greeting greeting; //Con autowired puedes crear objetos directamente
 	 
-	 AtomicLong counter=new AtomicLong();
+	 private AtomicLong counter=new AtomicLong();
 	
 	@GetMapping("/greeting") //Porque se ha elegido Get, si fuera Post sería PostMapping
 	public Greeting greeting(@RequestParam(value="name")String name) {

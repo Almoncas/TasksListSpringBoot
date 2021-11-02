@@ -10,7 +10,7 @@ import com.nttdata.nttdatadarmytasksms.controller.Tasks;
 public class TasksListRepositoryImpl implements TasksListRepositoryCustom {
 
 	@Autowired
-	TasksListRepository repository;
+	private TasksListRepository repository;
 	
 	@Override
 	public List<Tasks> findAllByTitle(String title) { 
@@ -26,7 +26,6 @@ public class TasksListRepositoryImpl implements TasksListRepositoryCustom {
 			if(t.getTitle().equalsIgnoreCase(title)) {
 				tasksWithTitle.add(t);//Lo mete en la nueva lista
 			}
-			
 			
 		}
 		

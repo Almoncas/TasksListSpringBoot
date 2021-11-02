@@ -26,15 +26,16 @@ import org.springframework.http.HttpHeaders;
 @RestController //Mirara en todos los archivos donde haya @RestController para ver donde está el /addTask por ejemplo
 public class TaskController {
 	
-	@Autowired
-	TasksListRepository repository;
 	
 	@Autowired
-	TasksListService tasksListService;
+	private TasksListRepository repository;
+	
+	@Autowired
+	private TasksListService tasksListService;
 	
 	private final static Logger logger=LoggerFactory.getLogger(TaskController.class);
 	
-	@PostMapping("/tasks/add")
+	@PostMapping("/tasks")
 	public ResponseEntity<AddResponse> addTaskImplementation(@RequestBody Tasks task) {
 		
 		AddResponse ad=new AddResponse();
@@ -51,7 +52,6 @@ public class TaskController {
 		
 		HttpHeaders headers=new HttpHeaders();
 		headers.add("unique", task.getTitle());
-		
 		
 		ad.setMsg("Se ha añadido la tarea "+task.getTitle());
 		ad.setTitle(task.getTitle());
@@ -85,7 +85,7 @@ public class TaskController {
 	}
 	
 	
-	@GetMapping("/tasks/title")
+	@GetMapping("/tasks")
 	public List<Tasks> getTasksByTitle(@RequestParam(value="title")String title) {
 		
 		return repository.findAllByTitle(title);
@@ -95,7 +95,7 @@ public class TaskController {
 	//https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods
 	
 	
-	@PutMapping("/tasks/update/{id}")
+	@PutMapping("/tasks/{id}")
 	public ResponseEntity<Tasks> updateTask(@PathVariable(value="id")int id,@RequestBody Tasks task) { //Porque pedimos la id de la task, y los datos nuevos a actualizar
 		
 		//Tasks existingTask=repository.findById(id).get();
@@ -115,7 +115,7 @@ public class TaskController {
 	}
 
 	
-	@DeleteMapping("/tasks/delete")
+	@DeleteMapping("/tasks")
 	public ResponseEntity<String> deleteTaskById(@RequestBody Tasks task) { 
 		//Hecho de manera distinta al tutorial
 		//Aqui solo le paso el id, en el tutorial buscas la entidad entera y la borras, pero de esa manera no me funciona

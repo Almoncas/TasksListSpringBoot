@@ -8,7 +8,7 @@ import com.nttdata.nttdatadarmytasksms.controller.Tasks;
 
 
 //@Repository No es necesaria esta instrucción
-public interface TasksListRepository extends JpaRepository<Tasks, Integer> {
+public interface TasksListRepository extends JpaRepository<Tasks, Integer>, TasksListRepositoryCustom {
 	
 	List<Tasks> findAllByTitle(String title);
 

@@ -14,10 +14,12 @@ public class ControllerAdvisor {
 	
 	private final static Logger logger=LoggerFactory.getLogger(ControllerAdvisor.class);
 	
-	@ExceptionHandler(NoSuchElementException.class)
+	@ExceptionHandler(value=NoSuchElementException.class)
 	@ResponseStatus (HttpStatus.NOT_FOUND)
 	public void handleNoSuchElementException(NoSuchElementException e) {
 		logger.info("No se ha encontrado el elemento");
 	}
+	
+	
 
 }
