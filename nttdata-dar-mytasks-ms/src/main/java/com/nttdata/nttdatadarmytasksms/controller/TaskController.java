@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.nttdata.nttdatadarmytasksms.repository.TasksListRepository;
 import com.nttdata.nttdatadarmytasksms.service.TasksListService;
@@ -35,7 +34,7 @@ public class TaskController {
 	
 	private final static Logger logger=LoggerFactory.getLogger(TaskController.class);
 	
-	@PostMapping("/addTask")
+	@PostMapping("/tasks/add")
 	public ResponseEntity<AddResponse> addTaskImplementation(@RequestBody Tasks task) {
 		
 		AddResponse ad=new AddResponse();
@@ -76,23 +75,17 @@ public class TaskController {
 	}
 	
 	
-	@GetMapping("/GetTaskByID/{id}") //Lo que vaya aqui entre llaves, es lo que tiene que ir en la siguiente linea en value="..."
+	@GetMapping("/tasks/id/{id}") //Lo que vaya aqui entre llaves, es lo que tiene que ir en la siguiente linea en value="..."
 	public Tasks getTaskById(@PathVariable(value="id")int id) {
+		//Esto realmente se podria hacer sin el .get() y con el if() de /addTask
 		
-		try { //Esto realmente se podria hacer sin el .get() y con el if() de /addTask
-			
 		Tasks task=repository.findById(id).get();
 		return task; //Spring Boot ya se encarga de devolverlo en formato JSON
-		}
 		
-		catch(Exception e) {//Por si no existe el libro
-			
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND); //404
-		}
 	}
 	
 	
-	@GetMapping("/GetTasksByTitle/title")
+	@GetMapping("/tasks/title")
 	public List<Tasks> getTasksByTitle(@RequestParam(value="title")String title) {
 		
 		return repository.findAllByTitle(title);
@@ -102,7 +95,7 @@ public class TaskController {
 	//https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods
 	
 	
-	@PutMapping("/updateTask/{id}")
+	@PutMapping("/tasks/update/{id}")
 	public ResponseEntity<Tasks> updateTask(@PathVariable(value="id")int id,@RequestBody Tasks task) { //Porque pedimos la id de la task, y los datos nuevos a actualizar
 		
 		//Tasks existingTask=repository.findById(id).get();
@@ -113,6 +106,8 @@ public class TaskController {
 		existingTask.setDescription(task.getDescription());
 		repository.save(existingTask);
 		
+		logger.info("Se ha actualizado la tarea y se ha guardado");
+		
 		//Mandar una respuesta de vuelta
 		return new ResponseEntity<Tasks>(existingTask,HttpStatus.OK);
 		
@@ -120,7 +115,7 @@ public class TaskController {
 	}
 
 	
-	@DeleteMapping("/deleteTask")
+	@DeleteMapping("/tasks/delete")
 	public ResponseEntity<String> deleteTaskById(@RequestBody Tasks task) { 
 		//Hecho de manera distinta al tutorial
 		//Aqui solo le paso el id, en el tutorial buscas la entidad entera y la borras, pero de esa manera no me funciona
@@ -134,14 +129,14 @@ public class TaskController {
 	}
 	
 	
-	@GetMapping("/GetAllTasks")
+	@GetMapping("/tasks")
 	public List<Tasks> getAllTasks(){
 		
 		return repository.findAll();
 	}
 	
 	
-	@PutMapping("/TaskDone/{id}")
+	@PutMapping("/tasks/done/{id}")
 	public ResponseEntity<Tasks> taskDone(@PathVariable(value="id")int id){
 		
 		Tasks task=repository.findById(id).get();
@@ -149,13 +144,14 @@ public class TaskController {
 		//Actualizar el campo de HECHO
 		task.setHecho(true);
 		repository.save(task);
+		logger.info("La tarea se ha marcado como hecha");
 		
 		return new ResponseEntity<Tasks>(task,HttpStatus.OK);
 		
 	}
 	
 	
-	@PutMapping("/TaskUndone/{id}")
+	@PutMapping("/tasks/undone/{id}")
 	public ResponseEntity<Tasks> taskUndone(@PathVariable(value="id")int id){
 		
 		Tasks task=repository.findById(id).get();
@@ -163,6 +159,7 @@ public class TaskController {
 		//Actualizar el campo de HECHO
 		task.setHecho(false);
 		repository.save(task);
+		logger.info("La tarea se ha marcado como no hecha");
 		
 		return new ResponseEntity<Tasks>(task,HttpStatus.OK);
 		
