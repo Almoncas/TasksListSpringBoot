@@ -1,7 +1,7 @@
 package com.nttdata.nttdatadarmytasksms;
 
 //import static org.hamcrest.CoreMatchers.is; Me salta error al importar este paquete: paquete de .is(1)
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 //import static org.mockito.Matchers.*;
 
@@ -18,6 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -28,7 +29,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,7 +44,7 @@ import com.nttdata.nttdatadarmytasksms.service.TasksListService;
 class NttdataDarMytasksMsApplicationTests {
 	
 	@Autowired
-	TaskController con;
+	private TaskController con;
 	@Autowired
 	private MockMvc mockMvc;
 	
@@ -117,7 +117,7 @@ class NttdataDarMytasksMsApplicationTests {
 		
 		//Aqui vamos a usar MockMvc
 		//Como estamos haciendo una llamada Mock, la respuesta también será Mock (en concreto, JSON);
-		this.mockMvc.perform(post("/tasks/add").contentType(MediaType.APPLICATION_JSON)
+		this.mockMvc.perform(post("/tasks").contentType(MediaType.APPLICATION_JSON)
 				.content(jsonString)).andDo(print()).andExpect(status().isCreated())
 				.andExpect(jsonPath("$.title").value(task.getTitle())); //En esta ultima linea comparo el title que recibo con el que he mandado
 		//Enviar JSON en formato String, también puedes enviarlo haciendo un copia y pega a lo bruto
@@ -132,7 +132,7 @@ class NttdataDarMytasksMsApplicationTests {
 		ta.add(buildTask());
 		when(repository.findAllByTitle(any())).thenReturn(ta);
 		
-		this.mockMvc.perform(get("/tasks/title").param("title", "PruebaTest10"))
+		this.mockMvc.perform(get("/tasks").param("title", "PruebaTest10"))
 			.andDo(print()).andExpect(status().isOk())
 			.andExpect(jsonPath("$.[0].id").value(10)); //Busco el id del primer elemento [0] de la lista que me devuelve
 			//.andExpect(jsonPath("$.length()").is(1)); //Como solo hay una tarea con ese titulo, solo espero una
@@ -147,7 +147,7 @@ class NttdataDarMytasksMsApplicationTests {
 		String jsonString=map.writeValueAsString(updateTask());
 		when(tasksListService.getTaskByID(anyInt())).thenReturn(buildTask());
 		
-		this.mockMvc.perform(put("/tasks/update/"+ta.getId()).contentType(MediaType.APPLICATION_JSON)
+		this.mockMvc.perform(put("/tasks/"+ta.getId()).contentType(MediaType.APPLICATION_JSON)
 			.content(jsonString)).andDo(print()).andExpect(status().isOk())
 			.andExpect(content().json("{\"id\":10,\"title\":\"PruebaTest15\",\"description\":\"Esta es una prueba de test 15\",\"hecho\":false}"));   //Sacado de la consola cuando haces el andDo(print()), pero lo he actualizado yo el title y description.
 	}
@@ -159,7 +159,7 @@ class NttdataDarMytasksMsApplicationTests {
 		Tasks ta=buildTask();
 		//when(ta.getId()).thenReturn(ta.getId()); //Realmente esta linea no tiene sentido
 		doNothing().when(repository).deleteById(ta.getId());
-		this.mockMvc.perform(delete("/tasks/delete").contentType(MediaType.APPLICATION_JSON)
+		this.mockMvc.perform(delete("/tasks").contentType(MediaType.APPLICATION_JSON)
 				.content("{\"id\" : \"10\"}")).andDo(print()).andExpect(status().isCreated())
 				.andExpect(content().string("Task deleted"));
 	}

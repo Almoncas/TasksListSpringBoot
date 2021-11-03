@@ -129,7 +129,7 @@ public class TaskController {
 	}
 	
 	
-	@GetMapping("/tasks")
+	@GetMapping("/tasks/all")
 	public List<Tasks> getAllTasks(){
 		
 		return repository.findAll();
