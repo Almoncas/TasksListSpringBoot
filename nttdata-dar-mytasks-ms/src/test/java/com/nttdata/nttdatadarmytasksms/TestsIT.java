@@ -1,8 +1,10 @@
 package com.nttdata.nttdatadarmytasksms;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.json.JSONException;
-import org.junit.Assert;
-import org.junit.Test;
+//import org.junit.Assert;
+import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -47,8 +49,8 @@ public class TestsIT {
 		
 		HttpEntity<Tasks> request = new HttpEntity<Tasks>(buildTask(),headers);
 		ResponseEntity<String>	response =	restTemplate.postForEntity("http://localhost:8080/addTask", request, String.class);
-		Assert.assertEquals(HttpStatus.CREATED, response.getStatusCode());
-		Assert.assertEquals(buildTask().getId(),response.getHeaders().get("unique").get(0)); //get(0) porque el get("unique") devuelve una lista, entonces el que quieres esta en la primera posicion
+		assertEquals(HttpStatus.CREATED, response.getStatusCode());
+		assertEquals(buildTask().getId(),response.getHeaders().get("unique").get(0)); //get(0) porque el get("unique") devuelve una lista, entonces el que quieres esta en la primera posicion
 		
 		
 	}

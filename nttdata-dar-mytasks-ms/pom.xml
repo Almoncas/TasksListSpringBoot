@@ -14,7 +14,7 @@
 	<name>nttdata-dar-mytasks-ms</name>
 	<description>Proyecto de prueba Lista de tareas</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>11</java.version> 
 	</properties>
 	
 	
@@ -59,11 +59,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-		<groupId>junit</groupId>
-		<artifactId>junit</artifactId>
-		<!--<version>4.12</version>-->
-		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
 		<!--<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -82,20 +78,18 @@
 			
 			<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-failsafe-plugin</artifactId>
-    <!--  <version>2.17</version>-->
-    <executions>
-        <execution>
-            <id>integration-tests</id>
-            <goals>
-                <goal>integration-test</goal>
-                <goal>verify</goal>
-            </goals>
-        </execution>
-    </executions>
-            </plugin>
-            
+   			 	<artifactId>maven-failsafe-plugin</artifactId>
+    			<!--  <version>2.17</version>-->
+    			<executions>
+        			<execution>
+            			<id>integration-tests</id>
+            				<goals>
+                				<goal>integration-test</goal>
+                				<goal>verify</goal>
+            				</goals>
+        			</execution>
+    			</executions>
+           	</plugin>
 		</plugins>
 	</build>
-
 </project>
