@@ -20,8 +20,5 @@ public class NttdataDarMytasksMsApplication  {
 	public static void main(String[] args) {
 		SpringApplication.run(NttdataDarMytasksMsApplication.class, args);
 	}
-<<<<<<< HEAD
-=======
 
->>>>>>> pruebas
 }

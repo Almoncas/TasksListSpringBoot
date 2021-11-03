@@ -1,9 +1,6 @@
 package com.nttdata.nttdatadarmytasksms;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.json.JSONException;
-//import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,10 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.nttdata.nttdatadarmytasksms.controller.Tasks;
 
 @SpringBootTest
-public class TestsIT {
+public class integrationIT {
 
 	//Estos tests se tienen que hacer con el profile=dev y el programa corriendo
 	@Test
@@ -31,7 +30,7 @@ public class TestsIT {
 				"}";
 		
 		TestRestTemplate restTemplate= new TestRestTemplate();
-		ResponseEntity<String> response=restTemplate.getForEntity("http://localhost:8080/GetTaskByID/2", String.class);
+		ResponseEntity<String> response=restTemplate.getForEntity("http://localhost:8080/tasks/id/2", String.class);
 		System.out.println(response.getStatusCode());
 		System.out.println(response.getBody());
 		JSONAssert.assertEquals(expected, response.getBody(), false);
@@ -41,16 +40,16 @@ public class TestsIT {
 	
 	
 	@Test
-	public void addBookIntegrationTest()
+	public void addTaskIntegrationTest()
 	{
 		TestRestTemplate restTemplate =new TestRestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		
 		HttpEntity<Tasks> request = new HttpEntity<Tasks>(buildTask(),headers);
-		ResponseEntity<String>	response =	restTemplate.postForEntity("http://localhost:8080/addTask", request, String.class);
+		ResponseEntity<String>	response =	restTemplate.postForEntity("http://localhost:8080/tasks", request, String.class);
 		assertEquals(HttpStatus.CREATED, response.getStatusCode());
-		assertEquals(buildTask().getId(),response.getHeaders().get("unique").get(0)); //get(0) porque el get("unique") devuelve una lista, entonces el que quieres esta en la primera posicion
+		assertEquals(buildTask().getTitle(),response.getHeaders().get("unique").get(0)); //get(0) porque el get("unique") devuelve una lista, entonces el que quieres esta en la primera posicion
 		
 		
 	}

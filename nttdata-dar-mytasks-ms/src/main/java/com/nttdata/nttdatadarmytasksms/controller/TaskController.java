@@ -28,10 +28,10 @@ public class TaskController {
 	
 	
 	@Autowired
-	private TasksListRepository repository;
+	TasksListRepository repository;
 	
 	@Autowired
-	private TasksListService tasksListService;
+	TasksListService tasksListService;
 	
 	private final static Logger logger=LoggerFactory.getLogger(TaskController.class);
 	

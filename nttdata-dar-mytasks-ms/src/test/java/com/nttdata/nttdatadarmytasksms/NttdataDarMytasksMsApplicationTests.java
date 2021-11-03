@@ -1,7 +1,7 @@
 package com.nttdata.nttdatadarmytasksms;
 
 //import static org.hamcrest.CoreMatchers.is; Me salta error al importar este paquete: paquete de .is(1)
-//import static org.junit.Assert.*;
+
 import static org.mockito.Mockito.*;
 //import static org.mockito.Matchers.*;
 
@@ -18,7 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -29,6 +28,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,7 +44,7 @@ import com.nttdata.nttdatadarmytasksms.service.TasksListService;
 class NttdataDarMytasksMsApplicationTests {
 	
 	@Autowired
-	private TaskController con;
+	TaskController con;
 	@Autowired
 	private MockMvc mockMvc;
 	

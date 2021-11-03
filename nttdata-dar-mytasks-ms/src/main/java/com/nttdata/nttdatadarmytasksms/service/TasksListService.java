@@ -12,7 +12,7 @@ import com.nttdata.nttdatadarmytasksms.repository.TasksListRepository;
 public class TasksListService {
 	
 	@Autowired
-	private TasksListRepository repository;
+	TasksListRepository repository;
 	
 	public boolean checkTaskAlreadyExist(int id) {
 		

@@ -14,7 +14,7 @@
 	<name>nttdata-dar-mytasks-ms</name>
 	<description>Proyecto de prueba Lista de tareas</description>
 	<properties>
-		<java.version>11</java.version> 
+		<java.version>11</java.version>
 	</properties>
 	
 	
@@ -55,11 +55,36 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>
+ 
+    <!-- exclude junit 4 -->
+ 
+    <exclusions>
+        <exclusion>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+ 
+<!-- Junit 5 -->
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-api</artifactId>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-engine</artifactId>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.junit.platform</groupId>
+    <artifactId>junit-platform-launcher</artifactId>
+    <scope>test</scope>
+</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security -->
 		<!--<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -90,6 +115,8 @@
         			</execution>
     			</executions>
            	</plugin>
+            
 		</plugins>
 	</build>
+
 </project>
