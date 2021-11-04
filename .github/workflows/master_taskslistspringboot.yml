@@ -23,6 +23,7 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean install -f nttdata-dar-mytasks-ms/pom.xml
+          
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
