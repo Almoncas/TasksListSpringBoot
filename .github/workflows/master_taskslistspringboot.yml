@@ -29,7 +29,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          path: '${{ github.workspace }}nttdata-dar-mytasks-ms/target/*.jar'
 
   deploy:
     runs-on: windows-latest
@@ -43,6 +43,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: java-app
+          path: nttdata-dar-mytasks-ms/
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
