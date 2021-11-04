@@ -9,7 +9,7 @@ CREATE TABLE LISTOFTASKS(
 
 
 INSERT INTO LISTOFTASKS (id,title,description,hecho) VALUES
-	(1,'Prueba1','LA PATRIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII',FALSE),
+	(1,'Prueba1','La descripcion de la prueba 1',FALSE),
 	(2,'Prueba2','La descripcion de la prueba 2',FALSE),
 	(3,'Prueba3','Esta descripcion si esta a TRUE el campo de done',TRUE);
 	
