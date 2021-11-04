@@ -19,7 +19,7 @@ import com.nttdata.nttdatadarmytasksms.controller.Tasks;
 public class integrationIT {
 
 	//Estos tests se tienen que hacer con el profile=dev y el programa corriendo
-	@Test
+	/*@Test
 	public void getTaskByIdTest() throws JSONException {
 		
 		String expected="{\r\n" + 
@@ -52,7 +52,7 @@ public class integrationIT {
 		assertEquals(buildTask().getTitle(),response.getHeaders().get("unique").get(0)); //get(0) porque el get("unique") devuelve una lista, entonces el que quieres esta en la primera posicion
 		
 		
-	}
+	}*/
 	
 	
 	
