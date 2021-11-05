@@ -114,6 +114,7 @@ public class TaskController {
 		//Actualizar los datos antiguos por los nuevos
 		existingTask.setTitle(task.getTitle());
 		existingTask.setDescription(task.getDescription());
+		existingTask.setHecho(task.getHecho());
 		repository.save(existingTask);
 		
 		logger.info("Se ha actualizado la tarea y se ha guardado");

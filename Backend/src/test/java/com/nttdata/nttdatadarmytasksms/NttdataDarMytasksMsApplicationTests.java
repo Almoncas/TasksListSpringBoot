@@ -98,10 +98,24 @@ class NttdataDarMytasksMsApplicationTests {
 		task.setId(10);
 		task.setTitle("PruebaTest15");
 		task.setDescription("Esta es una prueba de test 15");
-		task.setHecho(Progreso.InProgress);
+		task.setHecho(Progreso.Pending);
 		return task;
 	}
 	
+	@Test
+	public void updateTaskTest() throws Exception {
+		
+		Tasks ta=buildTask();
+		ObjectMapper map= new ObjectMapper();
+		
+		String jsonString=map.writeValueAsString(updateTask());
+		
+		when(tasksListService.getTaskByID(anyInt())).thenReturn(buildTask());
+		
+		this.mockMvc.perform(put("/tasks/"+ta.getId()).contentType(MediaType.APPLICATION_JSON)
+			.content(jsonString)).andDo(print()).andExpect(status().isOk())
+			.andExpect(content().json("{\"id\":10,\"title\":\"PruebaTest15\",\"description\":\"Esta es una prueba de test 15\",\"hecho\":Pending}"));   //Sacado de la consola cuando haces el andDo(print()), pero lo he actualizado yo el title y description.
+	}
 	
 	@Test
 	public void addTaskControllerTest() throws Exception {
@@ -141,18 +155,7 @@ class NttdataDarMytasksMsApplicationTests {
 			//No puedo probar la linea de arriba, porque al importar el paquete necesario me salta que es accesible desde más de un módulo
 	}
 
-	@Test
-	public void updateTaskTest() throws Exception {
-		
-		Tasks ta=buildTask();
-		ObjectMapper map= new ObjectMapper();
-		String jsonString=map.writeValueAsString(updateTask());
-		when(tasksListService.getTaskByID(anyInt())).thenReturn(buildTask());
-		
-		this.mockMvc.perform(put("/tasks/"+ta.getId()).contentType(MediaType.APPLICATION_JSON)
-			.content(jsonString)).andDo(print()).andExpect(status().isOk())
-			.andExpect(content().json("{\"id\":10,\"title\":\"PruebaTest15\",\"description\":\"Esta es una prueba de test 15\",\"hecho\":false}"));   //Sacado de la consola cuando haces el andDo(print()), pero lo he actualizado yo el title y description.
-	}
+	
 
 	@Test
 	public void deleteTaskControllerTest() throws Exception {
