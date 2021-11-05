@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -92,6 +93,15 @@ public class TaskController {
 		
 	}
 	
+	@CrossOrigin(origins = "http://localhost:8080") //Tambien se puede implementar de forma generalizada a todos los metodos
+	@GetMapping("tasks/prueba")
+	public String pruebaCross(@RequestParam(required=false,defaultValue="Hello World")String entrada)
+	{
+		return entrada;
+		//Este metodo está hecho así porque en la lista de tareas no tiene mucho sentido el crossorigins, o al menos yo no se lo encuentro.
+		//Entonces se ha creado un metodo simple para ver como funciona.
+	}
+	
 	//https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods
 	
 	
@@ -137,33 +147,22 @@ public class TaskController {
 	
 	
 	@PutMapping("/tasks/done/{id}")
-	public ResponseEntity<Tasks> taskDone(@PathVariable(value="id")int id){
+	public ResponseEntity<Tasks> taskAdvance(@PathVariable(value="id")int id){
 		
 		Tasks task=repository.findById(id).get();
 		
-		//Actualizar el campo de HECHO
-		task.setHecho(true);
+		//Avanzar al siguiente estado de progreso
+		if(task.getHecho()==Progreso.Pending){
+			task.setHecho(Progreso.InProgress);
+			logger.info("La tarea ha avanzado a InProgress");
+		}else if(task.getHecho()==Progreso.InProgress) {
+			task.setHecho(Progreso.Finished);
+			logger.info("La tarea ha avanzado a Finished");
+		}
 		repository.save(task);
-		logger.info("La tarea se ha marcado como hecha");
 		
 		return new ResponseEntity<Tasks>(task,HttpStatus.OK);
 		
 	}
-	
-	
-	@PutMapping("/tasks/undone/{id}")
-	public ResponseEntity<Tasks> taskUndone(@PathVariable(value="id")int id){
-		
-		Tasks task=repository.findById(id).get();
-		
-		//Actualizar el campo de HECHO
-		task.setHecho(false);
-		repository.save(task);
-		logger.info("La tarea se ha marcado como no hecha");
-		
-		return new ResponseEntity<Tasks>(task,HttpStatus.OK);
-		
-	}
-	
 }
 

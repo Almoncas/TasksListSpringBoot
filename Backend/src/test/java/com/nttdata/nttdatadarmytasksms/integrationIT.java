@@ -1,17 +1,19 @@
 package com.nttdata.nttdatadarmytasksms;
 
-import org.json.JSONException;
-import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.JSONAssert;
+//import org.json.JSONException;
+//import org.junit.jupiter.api.Test;
+//import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.boot.test.web.client.TestRestTemplate;
+//import org.springframework.http.HttpEntity;
+//import org.springframework.http.HttpHeaders;
+//import org.springframework.http.HttpStatus;
+//import org.springframework.http.MediaType;
+//import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.nttdata.nttdatadarmytasksms.controller.Progreso;
+
+//import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.nttdata.nttdatadarmytasksms.controller.Tasks;
 
@@ -61,7 +63,7 @@ public class integrationIT {
 		task.setId(10);
 		task.setTitle("PruebaTest10");
 		task.setDescription("Esta es una prueba de test");
-		task.setHecho(false);
+		task.setHecho(Progreso.Pending);
 		return task;
 	}
 

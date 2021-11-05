@@ -33,6 +33,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nttdata.nttdatadarmytasksms.controller.AddResponse;
+import com.nttdata.nttdatadarmytasksms.controller.Progreso;
 import com.nttdata.nttdatadarmytasksms.controller.TaskController;
 import com.nttdata.nttdatadarmytasksms.controller.Tasks;
 import com.nttdata.nttdatadarmytasksms.repository.TasksListRepository;
@@ -47,6 +48,7 @@ class NttdataDarMytasksMsApplicationTests {
 	TaskController con;
 	@Autowired
 	private MockMvc mockMvc;
+
 	
 	@MockBean
 	TasksListRepository repository;
@@ -87,7 +89,7 @@ class NttdataDarMytasksMsApplicationTests {
 		task.setId(10);
 		task.setTitle("PruebaTest10");
 		task.setDescription("Esta es una prueba de test");
-		task.setHecho(false);
+		task.setHecho(Progreso.Pending);
 		return task;
 	}
 	
@@ -96,7 +98,7 @@ class NttdataDarMytasksMsApplicationTests {
 		task.setId(10);
 		task.setTitle("PruebaTest15");
 		task.setDescription("Esta es una prueba de test 15");
-		task.setHecho(false);
+		task.setHecho(Progreso.InProgress);
 		return task;
 	}
 	

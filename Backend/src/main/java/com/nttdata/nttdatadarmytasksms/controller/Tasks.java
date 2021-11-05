@@ -22,7 +22,7 @@ public class Tasks {
 	@Column(name="description")
 	private String description;
 	@Column(name="hecho")
-	private boolean hecho;
+	private Progreso hecho;
 	
 	public int getId() {
 		return id;
@@ -42,11 +42,12 @@ public class Tasks {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public boolean isHecho() {
+	public Progreso getHecho() {
 		return hecho;
 	}
-	public void setHecho(boolean hecho) {
+	public void setHecho(Progreso hecho) {
 		this.hecho = hecho;
 	}
+	
 
 }
