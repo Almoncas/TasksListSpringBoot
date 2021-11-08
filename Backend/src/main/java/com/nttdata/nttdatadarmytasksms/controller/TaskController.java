@@ -24,6 +24,7 @@ import org.springframework.http.HttpHeaders;
 
 //TODO Quitar los comentarios y poner más logs
 
+@CrossOrigin(origins = "*")
 @RestController //Mirara en todos los archivos donde haya @RestController para ver donde está el /addTask por ejemplo
 public class TaskController {
 	
@@ -93,7 +94,7 @@ public class TaskController {
 		
 	}
 	
-	@CrossOrigin(origins = "http://localhost:8080") //Tambien se puede implementar de forma generalizada a todos los metodos
+	//@CrossOrigin(origins = "http://localhost:8080") //Tambien se puede implementar de forma generalizada a todos los metodos
 	@GetMapping("tasks/prueba")
 	public String pruebaCross(@RequestParam(required=false,defaultValue="Hello World")String entrada)
 	{
