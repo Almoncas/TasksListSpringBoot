@@ -164,9 +164,11 @@ class NttdataDarMytasksMsApplicationTests {
 		Tasks ta=buildTask();
 		//when(ta.getId()).thenReturn(ta.getId()); //Realmente esta linea no tiene sentido
 		doNothing().when(repository).deleteById(ta.getId());
-		this.mockMvc.perform(delete("/tasks").contentType(MediaType.APPLICATION_JSON)
-				.content("{\"id\" : \"10\"}")).andDo(print()).andExpect(status().isCreated())
+		/*this.mockMvc.perform(delete("/tasks")
+				.("id", )
+				.andDo(print()).andExpect(status().isCreated())
 				.andExpect(content().string("Task deleted"));
+		 */
 	}
 
 }
