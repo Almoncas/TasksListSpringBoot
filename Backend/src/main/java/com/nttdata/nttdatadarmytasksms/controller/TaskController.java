@@ -127,13 +127,13 @@ public class TaskController {
 	}
 
 	
-	@DeleteMapping("/tasks")
-	public ResponseEntity<String> deleteTaskById(@RequestBody Tasks task) { 
+	@DeleteMapping("/tasks/{id}")
+	public ResponseEntity<String> deleteTaskById(@PathVariable(value="id")int id) { 
 		//Hecho de manera distinta al tutorial
 		//Aqui solo le paso el id, en el tutorial buscas la entidad entera y la borras, pero de esa manera no me funciona
 		
 		//TODO todos los posibles errores de no encontrar la tarea, etc.
-		int id= task.getId();
+		//int id= task.getId();
 		repository.deleteById(id);
 		return new ResponseEntity<>("Task deleted",HttpStatus.CREATED);//Esta vez no quiero responder con un Json, sino con un string.
 		//Por eso no hace falta hacer la reconversion<>
